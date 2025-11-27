@@ -276,9 +276,7 @@
     <div class="status-bar">
         <div class="location-pill">📍 
             <select id="locationSelect" style="all: unset; font-weight: bold; cursor: pointer;">
-                <option selected>臺中市</option>
-                <option>臺北市</option>
-                <option>高雄市</option>
+
             </select>
         </div>
         <button id="shareToLine" class="share-btn">分享天氣到 Line</button>
@@ -300,6 +298,24 @@
     </div>
 
     <script>
+        // 城市選像陣列
+        const citys = [
+            "臺北市", "新北市", "桃園市", "臺中市", "臺南市", "高雄市", 
+            "基隆市", "新竹市", "嘉義市", 
+            "新竹縣", "苗栗縣", "彰化縣", "南投縣", "雲林縣", "嘉義縣", 
+            "屏東縣", "宜蘭縣", "花蓮縣", "臺東縣", "澎湖縣", "金門縣", "連江縣"
+        ];
+        
+        // 以 citys 陣列生成下拉選單選項
+        const locationSelect = document.getElementById("locationSelect");
+        citys.forEach(city => {
+            const option = document.createElement("option");
+            option.value = city;
+            option.textContent = city;
+            locationSelect.appendChild(option);
+        });
+        // 預設選擇臺中市
+        locationSelect.value = "臺中市";
         let city = "臺中市";
         let API_URL = "https://ttgcwa.zeabur.app/api/weather?city=${city}".replace("${city}", encodeURIComponent(city));
         // 監聽城市選擇的變化
