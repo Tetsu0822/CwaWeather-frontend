@@ -352,6 +352,8 @@
             const advice = getAdvice(current.rain, current.maxTemp);
             const period = getTimePeriod(current.startTime);
             const avgTemp = Math.round((parseInt(current.maxTemp) + parseInt(current.minTemp)) / 2);
+            const sunrise = new Date(data.sunrise).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+            const sunset = new Date(data.sunset).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
 
             document.getElementById('heroCard').innerHTML = `
                         <div class="hero-card">
@@ -361,6 +363,10 @@
                                 <div class="hero-temp">${avgTemp}°</div>
                             </div>
                             <div class="hero-desc">${current.weather}</div>
+
+                            <div class="hero-sun">
+                                🌅 日出: ${data.sunrise} 🌇 日落: ${data.sunset}
+                            </div>
                             
                             <div class="advice-grid">
                                 <div class="advice-item">
