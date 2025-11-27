@@ -263,7 +263,13 @@
         <p style="color: white; font-weight: bold; margin-top: 20px;">正在觀測雲的流動...</p>
     </div>
     <div class="status-bar">
-        <div class="location-pill">📍 台中</div>
+        <div class="location-pill">📍 
+            <select id="locationSelect" style="all: unset; font-weight: bold; cursor: pointer;">
+                <option selected>臺中市</option>
+                <option>台北市</option>
+                <option>高雄市</option>
+            </select>
+        </div>
         <div id="updateTime" class="update-pill">更新中...</div>
     </div>
 
@@ -279,7 +285,20 @@
     </div>
 
     <script>
-        const API_URL = "https://ttgcwa.zeabur.app/api/weather/kaohsiung";
+        let city = "臺中市";
+        let API_URL = "https://ttgcwa.zeabur.app/api/weather?city=${city}".replace("${city}", encodeURIComponent(city));
+        // 監聽城市選擇的變化
+        document.querySelector("#locationSelect").addEventListener("change", function (e) {
+            city = e.target.value; // 獲取選擇的城市
+            API_URL = `https://ttgcwa.zeabur.app/api/weather?city=${encodeURIComponent(city)}`; // 更新 API_URL
+
+            // 顯示 Loading 畫面
+            document.getElementById('loading').style.display = 'flex';
+            document.getElementById('mainContent').style.display = 'none';
+
+            // 重新抓取天氣資料
+            fetchWeather();
+        });
 
         function getWeatherIcon(weather) {
             if (!weather) return "🌤️";
@@ -337,9 +356,6 @@
                             <div class="hero-temp-container">
                                 <div class="hero-icon">${getWeatherIcon(current.weather)}</div>
                                 <div class="hero-temp">${avgTemp}°</div>
-                            </div>
-                            <div class="hero-sun">
-                                🌅 日出: ${data.sunrise} 🌇 日落: ${data.sunset}
                             </div>
                             <div class="hero-desc">${current.weather}</div>
                             
