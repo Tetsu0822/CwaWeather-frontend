@@ -283,6 +283,9 @@
         </div>
 
     </div>
+    <div class="city-switch-hint" style="text-align: center; margin-top: 10px; font-size: 0.9rem; color: var(--dora-dark);">
+        提示：您可以使用上方的下拉選單切換城市查看天氣！
+    </div>
 
     <script>
         let city = "臺中市";
@@ -423,6 +426,7 @@
                 const [_, json] = await Promise.all([delayPromise, fetchPromise]);
 
                 if (json.success) {
+                    console.log("天氣資料：", json.data);
                     renderWeather(json.data);
 
                     // 資料處理好後，隱藏 Loading，顯示主畫面
