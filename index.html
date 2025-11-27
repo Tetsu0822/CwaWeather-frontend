@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>森森天氣</title>
+    <title>哆啦報天氣</title>
     <link rel="icon" type="image/png" href="./icon-v2.png">
     <link rel="apple-touch-icon" href="./icon-v2.png">
     <link rel="apple-touch-icon" sizes="180x180" href="./icon-v2.png">
@@ -15,14 +15,14 @@
 
     <style>
         :root {
-            --ac-green: #7DE1A9;
-            --ac-bg-pattern: #8FD8AF;
-            --ac-cream: #FFFEF2;
-            --ac-yellow: #F9F195;
-            --ac-brown: #796452;
-            --ac-blue: #4FB5D9;
-            --ac-dark: #58504A;
-            --ac-card-border: #E6E0C8;
+            --dora-blue: #3C9DD0;
+            --dora-white: #FFFFFF;
+            --dora-yellow: #FFD700;
+            --dora-dark-blue: #1C6BA0;
+            --dora-light-blue: #A3DFF2;
+            --dora-dark: #58504A;
+            --dora-brown: #796452;
+            --dora-green: #7DE1A9;
         }
 
         * {
@@ -34,12 +34,11 @@
 
         body {
             font-family: 'Zen Maru Gothic', sans-serif;
-            background-color: var(--ac-green);
+            background-color: var(--dora-light-blue);
             /* 更細緻的斜紋背景 */
             background-image:
-                repeating-linear-gradient(45deg, transparent, transparent 20px, rgba(255, 255, 255, 0.2) 20px, rgba(255, 255, 255, 0.2) 40px);
-            min-height: 100vh;
-            color: var(--ac-dark);
+                repeating-linear-gradient(45deg, var(--dora-blue), var(--dora-blue) 20px, var(--dora-white) 20px, var(--dora-white) 40px);
+            color: var(--dora-dark-blue);
             /* 防止 iOS 左右滑動 */
             overflow-x: hidden;
             padding-bottom: 20px;
@@ -51,16 +50,16 @@
             justify-content: space-between;
             align-items: center;
             padding: 15px 20px;
-            background: rgba(255, 255, 255, 0.3);
-            backdrop-filter: blur(10px);
+            background: var(--dora-blue);
+            color: var(--dora-white);
             position: sticky;
             top: 0;
             z-index: 100;
         }
 
         .location-pill {
-            background: var(--ac-yellow);
-            color: var(--ac-brown);
+            background: var(--dora-yellow);
+            color: var(--dora-dark-blue);
             padding: 5px 15px;
             border-radius: 20px;
             font-weight: 900;
@@ -87,12 +86,12 @@
 
         /* === 核心：今日焦點卡片 === */
         .hero-card {
-            background: var(--ac-cream);
+            background: var(--dora-white);
             border-radius: 35px;
             padding: 30px 25px;
             text-align: center;
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-            border: 4px solid white;
+            border: 4px solid var(--dora-blue);
             margin-bottom: 25px;
             position: relative;
         }
@@ -103,8 +102,8 @@
             top: -15px;
             left: 50%;
             transform: translateX(-50%);
-            background: var(--ac-blue);
-            color: white;
+            background: var(--dora-blue);
+            color: var(--dora-white);
             padding: 5px 20px;
             border-radius: 20px;
             font-weight: bold;
@@ -141,13 +140,13 @@
         .hero-temp {
             font-size: 4.5rem;
             font-weight: 900;
-            color: var(--ac-brown);
+            color: var(--dora-dark-blue);
             line-height: 1;
         }
 
         .hero-desc {
             font-size: 1.5rem;
-            color: #8A7B70;
+            color: var(--dora-dark-blue);
             margin-bottom: 20px;
             font-weight: bold;
         }
@@ -166,7 +165,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            background: rgba(255, 255, 255, 0.5);
+            background: var(--dora-light-blue);
             padding: 10px;
             border-radius: 20px;
         }
@@ -179,7 +178,7 @@
         .advice-text {
             font-size: 1.4rem;
             font-weight: 900;
-            color: var(--ac-brown);
+            color: var(--dora-brown);
             margin: 5px 0;
             line-height: 1.2;
         }
@@ -187,7 +186,7 @@
         /* === 稍後預報：橫向滑動區 === */
         .section-title {
             font-size: 1.2rem;
-            color: white;
+            color: var(--dora-dark-blue); /* white; */
             margin-bottom: 15px;
             margin-left: 10px;
             font-weight: 900;
@@ -210,18 +209,18 @@
 
         .mini-card {
             min-width: 140px;
-            background: rgba(255, 255, 255, 0.85);
+            background: var(--dora-white);
             border-radius: 25px;
             padding: 20px 15px;
             text-align: center;
-            border: 3px solid white;
+            border: 3px solid var(--dora-blue);
             flex-shrink: 0;
             /* 防止被擠壓 */
         }
 
         .mini-time {
-            background: var(--ac-green);
-            color: white;
+            background: var(--dora-blue);
+            color: var(--dora-white);
             padding: 3px 10px;
             border-radius: 10px;
             font-size: 0.8rem;
@@ -238,7 +237,7 @@
         .mini-temp {
             font-size: 1.2rem;
             font-weight: 800;
-            color: var(--ac-dark);
+            color: var(--dora-dark);
         }
 
         /* Loading 畫面 */
@@ -248,7 +247,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: var(--ac-green);
+            background: var(--dora-blue);
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -294,10 +293,10 @@
 
         function getAdvice(rainProb, maxTemp) {
             let rainIcon = "🌂";
-            let rainText = "不用帶傘";
+            let rainText = "忘了它吧";
             if (parseInt(rainProb) > 30) {
                 rainIcon = "☂️";
-                rainText = "記得帶傘！";
+                rainText = "帶好帶滿！";
             }
 
             let clothIcon = "👕";
