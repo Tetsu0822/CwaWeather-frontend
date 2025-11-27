@@ -455,7 +455,6 @@
                 const [_, json] = await Promise.all([delayPromise, fetchPromise]);
 
                 if (json.success) {
-                    console.log("天氣資料：", json.data);
                     renderWeather(json.data);
 
                     // 資料處理好後，隱藏 Loading，顯示主畫面
