@@ -254,6 +254,17 @@
             align-items: center;
             z-index: 999;
         }
+        /* 分享天氣按鈕樣式 */
+        .share-btn {
+            background: var(--dora-yellow);
+            color: var(--dora-dark-blue);
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+        }
     </style>
 </head>
 
@@ -270,6 +281,7 @@
                 <option>高雄市</option>
             </select>
         </div>
+        <button id="shareButton" class="share-btn">分享天氣</button>
         <div id="updateTime" class="update-pill">更新中...</div>
     </div>
 
@@ -301,6 +313,22 @@
 
             // 重新抓取天氣資料
             fetchWeather();
+        });
+
+        document.querySelector('#shareButton').addEventListener('click', async () => {
+            const forecasts = document.querySelector('#heroCard').innerText;
+            const current = forecasts[0];
+            const weather = current.weather;
+            const temperature = `${current.minTemp}° - ${current.maxTemp}°`;
+
+            const response = await fetch(`/api/share?city=${city}&weather=${weather}&temperature=${temperature}`);
+            const json = await response.json();
+
+            if (json.success) {
+                alert(json.shareContent);
+            } else {
+                alert("分享失敗！");
+            }
         });
 
         function getWeatherIcon(weather) {
