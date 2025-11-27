@@ -334,7 +334,8 @@
         document.getElementById("shareToLine").addEventListener("click", function () {
             const city = document.querySelector("#locationSelect").value; // 獲取當前選擇的城市
             const weatherInfo = document.querySelector(".hero-card").innerText; // 獲取天氣資訊
-            const shareText = `【${city} 天氣資訊】\n${weatherInfo}`; // 組合分享內容
+            const currentUrl = window.location.href; // 獲取當前頁面的 URL
+            const shareText = `【${city} 天氣資訊】\n${weatherInfo}\n查看更多：${currentUrl}`; // 組合分享內容
             const encodedText = encodeURIComponent(shareText); // URL 編碼
             const lineShareUrl = `https://line.me/R/msg/text/?${encodedText}`; // Line 分享連結
 
