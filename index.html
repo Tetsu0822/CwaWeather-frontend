@@ -281,7 +281,7 @@
                 <option>高雄市</option>
             </select>
         </div>
-        <button id="shareButton" class="share-btn">分享天氣</button>
+        <button id="shareToLine" class="share-btn">分享天氣到 Line</button>
         <div id="updateTime" class="update-pill">更新中...</div>
     </div>
 
@@ -315,20 +315,15 @@
             fetchWeather();
         });
 
-        document.querySelector('#shareButton').addEventListener('click', async () => {
-            const forecasts = document.querySelector('#heroCard').innerText;
-            const current = forecasts[0];
-            const weather = current.weather;
-            const temperature = `${current.minTemp}° - ${current.maxTemp}°`;
+        document.getElementById("shareToLine").addEventListener("click", function () {
+            const city = document.querySelector("#locationSelect").value; // 獲取當前選擇的城市
+            const weatherInfo = document.querySelector(".hero-card").innerText; // 獲取天氣資訊
+            const shareText = `【${city} 天氣資訊】\n${weatherInfo}`; // 組合分享內容
+            const encodedText = encodeURIComponent(shareText); // URL 編碼
+            const lineShareUrl = `https://line.me/R/msg/text/?${encodedText}`; // Line 分享連結
 
-            const response = await fetch(`/api/share?city=${city}&weather=${weather}&temperature=${temperature}`);
-            const json = await response.json();
-
-            if (json.success) {
-                alert(json.shareContent);
-            } else {
-                alert("分享失敗！");
-            }
+            // 跳轉到 Line 分享
+            window.open(lineShareUrl, "_blank");
         });
 
         function getWeatherIcon(weather) {
